@@ -1,12 +1,12 @@
 const linkVar = "https://api.pexels.com/v1/search?query=";
-
+const options = {
+  headers: {
+    Authorization:
+      "Bearer 563492ad6f917000010000017c765efa3f4d41efa604c2c5fbe150bd",
+  },
+};
 const getData = (queryVar) => {
-  fetch(linkVar + queryVar, {
-    headers: {
-      Authorization:
-        "Bearer 563492ad6f917000010000017c765efa3f4d41efa604c2c5fbe150bd",
-    },
-  })
+  fetch(linkVar + queryVar, options)
     .then((dataRaw) => dataRaw.json())
     .then((dataProc) => {
       getPhotos(dataProc.photos);
@@ -23,7 +23,7 @@ const getPhotos = (data) => {
     <div class="col-md-4">
     <div class="card mb-4 shadow-sm">
       <img class="card-img-top" src="${
-        element.src.landscape
+        element.src.large
       }" alt="picture" data-toggle="modal" data-target="#exampleModal${[i]}">
 
         <title>Placeholder</title>
@@ -117,12 +117,7 @@ let searchButton = document.querySelector(".search-button");
 searchButton.addEventListener("click", search);
 
 const carousel = () => {
-  fetch("https://api.pexels.com/v1/search?query=forest", {
-    headers: {
-      Authorization:
-        "Bearer 563492ad6f917000010000017c765efa3f4d41efa604c2c5fbe150bd",
-    },
-  })
+  fetch("https://api.pexels.com/v1/search?query=forest", options)
     .then((dataRaw) => dataRaw.json())
     .then((dataProc) => {
       console.log(dataProc.photos);
@@ -146,5 +141,7 @@ const getCarousel = (data) => {
   }
 };
 
-window.onload = search();
-window.onload = carousel();
+window.onload = () => {
+  search();
+  carousel();
+};
